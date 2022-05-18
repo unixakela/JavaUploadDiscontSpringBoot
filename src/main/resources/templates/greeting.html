@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Загрузка клиентов в УКМ 4.0</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+</head>
+<body>
+<div>
+    <div><H1 th:text="'Загрузка клиентов в УКМ 4.0'"></H1></div>
+    <div>
+        <div>
+            <label for="classifclients">Группа дисконтных карт</label>
+            <select class="form-control selectpicker" th:field="*{classifclients}" id="classifclients" name="classifclients">
+                <option value="">Nothing selected</option>
+                <option th:each="classifclient : ${classifclients}"
+                        th:value = "${classifclient.id}"
+                        th:text = "${classifclient.name}"
+                >
+                </option>
+            </select>
+
+        </div>
+
+
+    </div>
+
+<form  method="post" enctype="multipart/form-data">
+    <p> Загрузка файла </p>
+    <input type="file" name="file">
+    <p>
+        <input type = "submit" name="onСlickSelectBtn" value = "Исследовать" />
+        <input type = "submit" name="onСlickUploadBtn" value = "Загрузить" />
+    </p>
+
+</form>
+</div>
+</body>
+</html>
