@@ -79,4 +79,17 @@ public class TZClientsChange {
     public void setStatus(StatusChange status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "TZClientsChange{" +
+                "id_client='" + id_client + '\'' +
+                ", phone='" + phone + '\'' +
+                ", oldGroupe='" + oldGroupe + '\'' +
+                ", oldName='" + oldName + '\'' +
+                ", newGroupe='" + newGroupe + '\'' +
+                ", newName='" + newName + '\'' +
+                ", status=" + status +
+                '}';
+    }
 }

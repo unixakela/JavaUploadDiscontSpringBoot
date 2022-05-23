@@ -12,8 +12,8 @@ import java.util.Optional;
 
 @Repository
 public interface Trm_in_card_clientRepository extends JpaRepository<Trm_in_card_client,Long> {
-    /*@Query("select t from Trm_in_card_client t where t.card = ?1")
-    Optional<Trm_in_card_client> findByCard(Long card);*/
+    @Query("select t from Trm_in_card_client t where t.card = ?1")
+    Optional<Trm_in_card_client> findByCard(Long card);
 
 
 

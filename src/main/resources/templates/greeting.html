@@ -8,30 +8,51 @@
 <body>
 <div>
     <div><H1 th:text="'Загрузка клиентов в УКМ 4.0'"></H1></div>
+
+    <form  method="post" enctype="multipart/form-data">
     <div>
         <div>
             <label for="classifclients">Группа дисконтных карт</label>
-            <select class="form-control selectpicker" th:field="*{classifclients}" id="classifclients" name="classifclients">
-                <option value="">Nothing selected</option>
+            <select class="form-control selectpicker"  id="classifclients" name="requestclassifclient">
                 <option th:each="classifclient : ${classifclients}"
                         th:value = "${classifclient.id}"
                         th:text = "${classifclient.name}"
+                        th:selected= "${classifclient.selected}"
                 >
                 </option>
             </select>
 
         </div>
-
-
     </div>
-
-<form  method="post" enctype="multipart/form-data">
     <p> Загрузка файла </p>
     <input type="file" name="file">
     <p>
         <input type = "submit" name="onСlickSelectBtn" value = "Исследовать" />
         <input type = "submit" name="onСlickUploadBtn" value = "Загрузить" />
     </p>
+        <table th:border="1">
+            <tr>
+                <th>ИД</th>
+                <th>Телефон</th>
+                <th>Номер старой группы</th>
+                <th>Старое имя</th>
+                <th>Номер новой группы</th>
+                <th>Новое имя</th>
+                <th>Статус</th>
+            </tr>
+            <tr th:each = "client: ${tzClientsChangeList}">
+                <td th:text="${client.getId_client()}">
+                <td th:text="${client.getPhone()}">
+                <td th:text="${client.getOldGroupe()}">
+                <td th:text="${client.getOldName()}">
+                <td th:text="${client.getNewGroupe()}">
+                <td th:text="${client.getNewName()}">
+                <td th:text="${client.getStatus()}">
+            </tr>
+        </table>
+
+
+
 
 </form>
 </div>
