@@ -148,7 +148,7 @@ public class GreetingController {
             System.out.println(trm_in_client.toString());
 
             StatusChange status = StatusChange.NOTHING;
-            if (trm_in_client.getClassifclient().toString().equals(requestclassifclient) || trm_in_client.getSurName().equals(str.getSub_name())){
+            if (!trm_in_client.getClassifclient().toString().equals(requestclassifclient) || !trm_in_client.getSurName().equals(str.getSub_name())){
                 status = StatusChange.RENAME_OR_REPLACE;
             }
            tzClientsChangeList.add(new TZClientsChange(
