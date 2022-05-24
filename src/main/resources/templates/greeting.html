@@ -2,59 +2,90 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <title>Загрузка клиентов в УКМ 4.0</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
 </head>
 <body>
-<div>
-    <div><H1 th:text="'Загрузка клиентов в УКМ 4.0'"></H1></div>
 
-    <form  method="post" enctype="multipart/form-data">
-    <div>
-        <div>
-            <label for="classifclients">Группа дисконтных карт</label>
-            <select class="form-control selectpicker"  id="classifclients" name="requestclassifclient">
-                <option th:each="classifclient : ${classifclients}"
-                        th:value = "${classifclient.id}"
-                        th:text = "${classifclient.name}"
-                        th:selected= "${classifclient.selected}"
-                >
-                </option>
-            </select>
+<div class="container px-1">
+    <div class="row">
 
+
+        <div class="col-sm">
+            <div><H1 th:text="'Перемещение/переименование клиентов в УКМ 4.0 по мобильному телефону'"></H1></div>
+            <form method="post" enctype="multipart/form-data">
+                <div>
+                    <div class="container">
+                        <div class="row">
+
+                            <div class="col-sm">
+                                <div>Группа дисконтных карт
+                                <select class="form-select form-select-lg mb-3" id="classifclients"
+                                        name="requestclassifclient">
+                                    <option th:each="classifclient : ${classifclients}"
+                                            th:value="${classifclient.id}"
+                                            th:text="${classifclient.name}"
+                                            th:selected="${classifclient.selected}"
+                                    >
+                                    </option>
+                                </select>
+                                </div>
+                            </div>
+                            <div class="col-sm">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p> Файл для загрузки: <input type="file" name="file">  </p>
+
+                <p>
+                    <input type="submit" name="onСlickSelectBtn" value="Исследовать"/>
+                    <input type="submit" name="onСlickUploadBtn" value="Загрузить"/>
+                </p>
+                <table class="table  table-bordered">
+                    <thead>
+                    <tr>
+                        <th>ИД</th>
+                        <th>Телефон</th>
+                        <th>Номер старой группы</th>
+                        <th>Старое имя</th>
+                        <th>Номер новой группы</th>
+                        <th>Новое имя</th>
+                        <th>Статус</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="client: ${tzClientsChangeList}">
+                        <td th:text="${client.getId_client()}">
+                        <td th:text="${client.getPhone()}">
+                        <td th:text="${client.getOldGroupe()}">
+                        <td th:text="${client.getOldName()}">
+                        <td th:text="${client.getNewGroupe()}">
+                        <td th:text="${client.getNewName()}">
+                        <td th:text="${client.getStatus()}">
+                    </tr>
+                    </tbody>
+                </table>
+
+
+            </form>
         </div>
+
     </div>
-    <p> Загрузка файла </p>
-    <input type="file" name="file">
-    <p>
-        <input type = "submit" name="onСlickSelectBtn" value = "Исследовать" />
-        <input type = "submit" name="onСlickUploadBtn" value = "Загрузить" />
-    </p>
-        <table th:border="1">
-            <tr>
-                <th>ИД</th>
-                <th>Телефон</th>
-                <th>Номер старой группы</th>
-                <th>Старое имя</th>
-                <th>Номер новой группы</th>
-                <th>Новое имя</th>
-                <th>Статус</th>
-            </tr>
-            <tr th:each = "client: ${tzClientsChangeList}">
-                <td th:text="${client.getId_client()}">
-                <td th:text="${client.getPhone()}">
-                <td th:text="${client.getOldGroupe()}">
-                <td th:text="${client.getOldName()}">
-                <td th:text="${client.getNewGroupe()}">
-                <td th:text="${client.getNewName()}">
-                <td th:text="${client.getStatus()}">
-            </tr>
-        </table>
-
-
-
-
-</form>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+        integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
+        integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
+        crossorigin="anonymous"></script>
+
 </body>
 </html>

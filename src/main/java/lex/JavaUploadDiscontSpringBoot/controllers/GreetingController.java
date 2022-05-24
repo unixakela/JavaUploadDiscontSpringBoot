@@ -100,6 +100,7 @@ public class GreetingController {
         }
         model.addAttribute("classifclients",classifClientSelectList);
         model.addAttribute("clients",tzClientsChangeList);
+        model.addAttribute("tzClientsChangeList",tzClientsChangeList);
 
 
     }
@@ -136,7 +137,7 @@ public class GreetingController {
 
 
         model.addAttribute("file",file);
-        viewPagwe(model);
+
         for (ExcelBean str :
                 listExcel) {
             System.out.println(str.toString());
@@ -167,8 +168,10 @@ public class GreetingController {
             System.out.println(cli.toString());
         }
         //System.out.println(classifclient.toString());
-        model.addAttribute("tzClientsChangeList",tzClientsChangeList);
+     //   model.addAttribute("tzClientsChangeList",tzClientsChangeList);
+        viewPagwe(model);
          return "greeting";
+
     }
 
 
@@ -176,13 +179,16 @@ public class GreetingController {
     public String uploadExcel(Model model, @RequestParam("requestclassifclient") String requestclassifclient) {
 
         updClassifClientList(requestclassifclient);
-        System.out.println("---");
-        System.out.println(requestclassifclient);
-        System.out.println("---");
+        List<Trm_in_clients> trmInClientsList = new ArrayList<>();
+        for (TZClientsChange client:
+             tzClientsChangeList) {
+            Trm_in_clients trm_in_client = trm_in_clientsRepository.findById(client.getId_client()).get();
+            trm_in_client.setSurName(client.getNewName());
+            trm_in_client.setClassifclient(Long.parseLong(client.getNewGroupe()));
+            trmInClientsList.add(trm_in_client);
+        }
+        trm_in_clientsRepository.saveAll(trmInClientsList);
         viewPagwe(model);
-        System.out.println("---");
-        //System.out.println(classifclient.toString());
-        System.out.println("---");
         return "greeting";
     }
 

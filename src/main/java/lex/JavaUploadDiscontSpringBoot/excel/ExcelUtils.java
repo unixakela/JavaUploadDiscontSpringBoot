@@ -34,9 +34,9 @@ public class ExcelUtils {
                         //String data = cell.getStringCellValue();
                         String data = getExcelCell(row.getCell(0)).trim();
                         String name = getExcelCell(row.getCell(1)).trim();
-                        String phone = getExcelCell(row.getCell(2)).trim();
-                        String card = getExcelCell(row.getCell(3)).trim();
-                        String birthday = getExcelCell(row.getCell(4)).trim();
+                        String phone = getExcelCell(row.getCell(3)).trim();
+                        String card = getExcelCell(row.getCell(4)).trim();
+                        String birthday = getExcelCell(row.getCell(2)).trim();
                         //data = data.trim();
                      /*   if (j == 0) {
                             bean.setDate(data);
