@@ -44,6 +44,7 @@ public class GreetingController {
     //-------------выбор груп клиентов
     List<ClassifClientSelect>  classifClientSelectList = new ArrayList<>();
     String currenSelectClassi ="";
+    List<ExcelBean> errorsList = new ArrayList<>();
 
 
 
@@ -71,8 +72,6 @@ public class GreetingController {
                     false
             ));
          }
-
-
     }
 
     public void updClassifClientList(String current){
@@ -98,6 +97,7 @@ public class GreetingController {
         if (classifClientSelectList.size()==0){
             initSeelct();
         }
+        model.addAttribute("errorsList",errorsList);
         model.addAttribute("classifclients",classifClientSelectList);
         model.addAttribute("clients",tzClientsChangeList);
         model.addAttribute("tzClientsChangeList",tzClientsChangeList);
@@ -111,6 +111,7 @@ public class GreetingController {
         //@RequestParam("classifclient.id") Long selectid,
         updClassifClientList(requestclassifclient);
         tzClientsChangeList.clear();
+        errorsList.clear();
         String name = file.getOriginalFilename (); // Получаем имя файла при загрузке
         if (name.length() < 6 || !name.substring(name.length() - 5).equals(".xlsx")) {
             System.out.println("Ошибка формата файла");
@@ -141,12 +142,21 @@ public class GreetingController {
         for (ExcelBean str :
                 listExcel) {
             System.out.println(str.toString());
-            Trm_in_cards trm_in_card =  trm_in_cardsRepository.findByStart_card_code(str.getPhone()).get();
-            System.out.println(trm_in_card.toString());
+            Trm_in_cards trm_in_card= new Trm_in_cards();
+            try {
+                trm_in_card =  trm_in_cardsRepository.findByStart_card_code(str.getPhone()).get();
+            }
+            catch (Exception e) {
+                System.out.println(e);
+                errorsList.add(str);
+                continue;
+            }
+
+        //    System.out.println(trm_in_card.toString());
             Trm_in_card_client trm_in_card_client = trm_in_card_clientRepository.findByCard(trm_in_card.getId()).get();
-            System.out.println(trm_in_card_client.toString());
+        //    System.out.println(trm_in_card_client.toString());
             Trm_in_clients trm_in_client = trm_in_clientsRepository.findById(trm_in_card_client.getClient()).get();
-            System.out.println(trm_in_client.toString());
+       //     System.out.println(trm_in_client.toString());
 
             StatusChange status = StatusChange.NOTHING;
             if (!trm_in_client.getClassifclient().toString().equals(requestclassifclient) || !trm_in_client.getSurName().equals(str.getSub_name())){

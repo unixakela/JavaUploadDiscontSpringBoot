@@ -5,6 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link href="css/style.css" rel="stylesheet">
 
 </head>
 <body>
@@ -14,7 +15,16 @@
 
 
         <div class="col-sm">
-            <div><H1 th:text="'Перемещение/переименование клиентов в УКМ 4.0 по мобильному телефону'"></H1></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-1">
+                        <a class="nav-link" href="/">Домой</a>
+                    </div>
+                    <div class="col-sm">
+                        <H1 th:text="'Перемещение/переименование клиентов в УКМ 4.0 по мобильному телефону'"></H1>
+                    </div>
+                </div>
+            </div>
             <form method="post" enctype="multipart/form-data">
                 <div>
                     <div class="container">
@@ -22,15 +32,15 @@
 
                             <div class="col-sm">
                                 <div>Группа дисконтных карт
-                                <select class="form-select form-select-lg mb-3" id="classifclients"
-                                        name="requestclassifclient">
-                                    <option th:each="classifclient : ${classifclients}"
-                                            th:value="${classifclient.id}"
-                                            th:text="${classifclient.name}"
-                                            th:selected="${classifclient.selected}"
-                                    >
-                                    </option>
-                                </select>
+                                    <select class="form-select form-select-lg mb-3" id="classifclients"
+                                            name="requestclassifclient">
+                                        <option th:each="classifclient : ${classifclients}"
+                                                th:value="${classifclient.id}"
+                                                th:text="${classifclient.name}"
+                                                th:selected="${classifclient.selected}"
+                                        >
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-sm">
@@ -39,36 +49,63 @@
                         </div>
                     </div>
                 </div>
-                <p> Файл для загрузки: <input type="file" name="file">  </p>
+                <p> Файл для загрузки: <input type="file" name="file"></p>
 
                 <p>
                     <input type="submit" name="onСlickSelectBtn" value="Исследовать"/>
                     <input type="submit" name="onСlickUploadBtn" value="Загрузить"/>
                 </p>
-                <table class="table  table-bordered">
-                    <thead>
-                    <tr>
-                        <th>ИД</th>
-                        <th>Телефон</th>
-                        <th>Номер старой группы</th>
-                        <th>Старое имя</th>
-                        <th>Номер новой группы</th>
-                        <th>Новое имя</th>
-                        <th>Статус</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="client: ${tzClientsChangeList}">
-                        <td th:text="${client.getId_client()}">
-                        <td th:text="${client.getPhone()}">
-                        <td th:text="${client.getOldGroupe()}">
-                        <td th:text="${client.getOldName()}">
-                        <td th:text="${client.getNewGroupe()}">
-                        <td th:text="${client.getNewName()}">
-                        <td th:text="${client.getStatus()}">
-                    </tr>
-                    </tbody>
-                </table>
+                <div class="scrollable">
+                    <table class="table mb-0 table-bordered table-striped table-sm">
+                        <thead>
+                        <tr class="table-primary">
+                            <th>ИД</th>
+                            <th>Телефон</th>
+                            <th>Номер старой группы</th>
+                            <th>Старое имя</th>
+                            <th>Номер новой группы</th>
+                            <th>Новое имя</th>
+                            <th>Статус</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr th:each="client: ${tzClientsChangeList}">
+                            <td th:text="${client.getId_client()}">
+                            <td th:text="${client.getPhone()}">
+                            <td th:text="${client.getOldGroupe()}">
+                            <td th:text="${client.getOldName()}">
+                            <td th:text="${client.getNewGroupe()}">
+                            <td th:text="${client.getNewName()}">
+                            <td th:text="${client.getStatus()}">
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div>Ошибка в базе не найден телефон</div>
+                <div class="scrollable">
+                    <table class="table mb-0 table-bordered table-striped table-sm">
+                        <thead>
+                        <tr class="table-secondary">
+                            <th>№</th>
+                            <th>ФИО</th>
+                            <th>Телефон</th>
+                            <th>Карта</th>
+                            <th>Дата рождения</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr th:each="ercli: ${errorsList}">
+                            <td th:text="${ercli.getDate()}">
+                            <td th:text="${ercli.getSub_name()}">
+                            <td th:text="${ercli.getPhone()}">
+                            <td th:text="${ercli.getCard()}">
+                            <td th:text="${ercli.getBirthday()}">
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
 
             </form>
